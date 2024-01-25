@@ -24,6 +24,18 @@
       <UniqueIdentifier>{47a6a3f5-8cfd-436b-8d58-beccd108f3f3}</UniqueIdentifier>
       <Extensions>hlsl</Extensions>
     </Filter>
+    <Filter Include="Title">
+      <UniqueIdentifier>{45d23921-b628-4d7e-91f4-14e9304a0b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play">
+      <UniqueIdentifier>{3197e984-ec2b-4889-9374-d97f403f8a52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clear">
+      <UniqueIdentifier>{496e7b9a-70ff-4b1f-a0a2-bf6b0a22b2d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Over">
+      <UniqueIdentifier>{8ca6f64f-1e8b-4449-9b79-53eebec1e618}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -80,7 +92,6 @@
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
@@ -95,6 +106,21 @@
     </ClCompile>
     <ClCompile Include="Engine\VFX.cpp">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="OverScene.cpp">
+      <Filter>Over</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearScene.cpp">
+      <Filter>Clear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +178,6 @@
     <ClInclude Include="Engine\Transform.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Engine\Audio.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
@@ -167,6 +192,21 @@
     </ClInclude>
     <ClInclude Include="Engine\VFX.h">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="OverScene.h">
+      <Filter>Over</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearScene.h">
+      <Filter>Clear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
