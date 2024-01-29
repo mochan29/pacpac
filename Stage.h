@@ -2,16 +2,9 @@
 #include "Engine/GameObject.h"
 #include <filesystem>
 #include <fstream>
-#include <vector>
 #include <sstream>
-
-using std::ifstream;
-using std::ofstream;
-using std::string;
-using std::vector;
-using std::getline;
-using std::stringstream;
-
+#include <string>
+#include <vector>
 
 namespace
 {
@@ -25,12 +18,12 @@ class Stage:
 {
 	int hFloor_;
 	int hWall_;
-	ifstream inputFile_;
-	string fname_ = "stage.csv";
-	vector<string>inputList;
-	vector<vector<int>> stage;
+	std::ifstream inputFile_;
+	std::string fname_ = "stage.csv";
+
+	std::vector<std::vector<int>> stage;
 public:
-	Stage(GameObject* parent) :GameObject(parent, "Stage"),hFloor_(-1),hWall_(-1) {};
+	Stage(GameObject* parent);
 	void Initialize() override;
 	void Update() override;
 	void Draw() override;
