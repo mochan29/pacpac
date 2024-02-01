@@ -9,6 +9,7 @@ void Player::Initialize()
 	hModel_ = Model::Load("Model\\Player.fbx");
 	assert(hModel_ >= 0);
 
+	//(0.5,1.5)を原点として考える
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
 	pStage_ = (Stage *)FindObject("Stage");
@@ -41,8 +42,8 @@ void Player::Update()
 	XMVECTOR postmp = XMVectorZero();
 	postmp = pos + speed_ * move;
 	int tx, ty;
-	tx = (int)(XMVectorGetX(postmp) + 0.5);
-	ty = pStage_->GetStageWidth() - (int)(XMVectorGetY(postmp)+0.5); //out of range 本当にwidthを使うのか...?
+	tx = (int)(XMVectorGetX(postmp) - 0.5);
+	ty = pStage_->GetStageHeight() - (int)(XMVectorGetY(postmp)+1.5); //本当にwidthを使うのか...?
 	if (!(pStage_->isWall(tx,ty)))
 	{
 		pos = postmp;
@@ -61,7 +62,7 @@ void Player::Update()
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
-		XMStoreFloat3(&(transform_.position_), pos);//vector->float
+		XMStoreFloat3(&(transform_.position_), pos);//vector->float ここpostmpでは？？まあいいか
 		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
 		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
 		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
