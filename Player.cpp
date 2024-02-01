@@ -11,10 +11,7 @@ void Player::Initialize()
 
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
-	//map[y][x]=map[13][1]が初期位置になるように
-	//mapが1(壁)の時はどうにかこうにか
-	//y(たて) 13->1.5 12->0.5 たぶん-1していくんだろうなあ？
-	//x(よこ) x-0.5
+	pStage_ = (Stage *)FindObject("Stage");
 }
 
 void Player::Update()
@@ -23,34 +20,44 @@ void Player::Update()
 	XMVECTOR move{ 0,0,0,0 }; //位置をどうにかする用のベクトル
 
 	//向き変える
-	if (Input::IsKeyDown(DIK_UP))
+	if (Input::IsKey(DIK_UP))
 	{
 		move = XMVECTOR{ 0,0,1,0 };
 	}
-	if (Input::IsKeyDown(DIK_DOWN))
+	if (Input::IsKey(DIK_DOWN))
 	{
 		move = XMVECTOR{ 0,0,-1,0 };
 	}
-	if (Input::IsKeyDown(DIK_RIGHT))
+	if (Input::IsKey(DIK_RIGHT))
 	{
 		move = XMVECTOR{ 1,0,0,0 };
 	}
-	if (Input::IsKeyDown(DIK_LEFT))
+	if (Input::IsKey(DIK_LEFT))
 	{
 		move = XMVECTOR{ -1,0,0,0 };
 	}
 
 	XMVECTOR pos = XMLoadFloat3(&(transform_.position_));//float->vector
-	pos = pos + speed_ * move;
-
-#if 0
-
+	XMVECTOR postmp = XMVectorZero();
+	postmp = pos + speed_ * move;
+	int tx, ty;
+	tx = (int)(XMVectorGetX(postmp) + 0.5);
+	ty = pStage_->GetStageWidth() - (int)(XMVectorGetY(postmp)+0.5); //out of range 本当にwidthを使うのか...?
+	if (!(pStage_->isWall(tx,ty)))
+	{
+		pos = postmp;
+	}
+#ifdef _DEBUG
 	Debug::Log("(x,z)=");
 	Debug::Log(XMVectorGetX(pos));
 	Debug::Log(",");
-	Debug::Log(XMVectorGetZ(pos));
-#endif
+	Debug::Log(XMVectorGetZ(pos),true);
 
+	Debug::Log("(ix,iy)=");
+	Debug::Log(tx);
+	Debug::Log(",");
+	Debug::Log(ty);
+#endif
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
@@ -66,7 +73,6 @@ void Player::Update()
 		}
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
-
 }
 
 void Player::Draw()

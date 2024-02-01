@@ -32,6 +32,9 @@
     <Filter Include="Over">
       <UniqueIdentifier>{8ca6f64f-1e8b-4449-9b79-53eebec1e618}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageCamera">
+      <UniqueIdentifier>{81173a98-bba6-4d42-8499-c757944d4a69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -121,6 +124,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="StageCamera.cpp">
+      <Filter>StageCamera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -209,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="StageCamera.h">
+      <Filter>StageCamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

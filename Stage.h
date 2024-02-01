@@ -9,12 +9,11 @@
 /// <summary>
 /// ステージのクラス
 /// </summary>
-
-namespace
+/// 
+enum STAGE_OBJ
 {
-	const int FLOORX = 15;
-	const int FLOORY = 15;
-}
+	FLOOR, WALL,
+};
 
 
 class Stage:
@@ -22,15 +21,21 @@ class Stage:
 {
 	int hFloor_; //床のモデル番号
 	int hWall_; //床+壁のモデル番号
-	std::ifstream inputFile_; //読んできたファイル
-	std::string fname_ = "stage.csv";
-
 	std::vector<std::vector<int>> stage; //ステージ構成の二次元配列
+	int stageWidth_; //ステージの幅
+	int stageHeight_; //ステージの高さ
 public:
 	Stage(GameObject* parent);
 	void Initialize() override;
 	void Update() override;
 	void Draw() override;
-	void Release() override {};
+	void Release() override;
+
+	//ステージの幅/高さを与える
+	int GetStageWidth() { return stageWidth_;}
+	int GetStageHeight() { return stageHeight_;}
+	
+	//ステージが壁かどうか判別
+	bool isWall(int _x, int _y) ;
 };
 
