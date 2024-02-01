@@ -1,10 +1,12 @@
 #include "Stage.h"
 #include "Engine/Model.h"
 
-Stage::Stage(GameObject* parent) :GameObject(parent, "Stage"), hFloor_(-1), hWall_(-1) 
+Stage::Stage(GameObject* parent) :GameObject(parent, "Stage"), hFloor_(-1), hWall_(-1)
 {
+#if 0
+	//ファイルを読み込む
 	std::vector<std::string>inputList;
-	stage.assign(FLOORX, std:: vector<int>(FLOORZ, 0));
+	stage.assign(FLOORX, std::vector<int>(FLOORZ, 0));
 
 	inputFile_.open(fname_, std::ios::in);
 	if (inputFile_.fail())
@@ -12,10 +14,6 @@ Stage::Stage(GameObject* parent) :GameObject(parent, "Stage"), hFloor_(-1), hWal
 		exit(0);
 	}
 
-	/*
-	一行とってくる
-	stringstreamさんにつっこむ->,区切りで読む
-	*/
 	std::string oneline;
 	std::string oneline2;
 	std::vector<std::string>inputList2;
@@ -39,11 +37,30 @@ Stage::Stage(GameObject* parent) :GameObject(parent, "Stage"), hFloor_(-1), hWal
 		inList[i] = stoi(inputList2[i]);//intに変換
 	}
 
+	//ステージの配列に突っ込む
 	for (int i = 0; i < inList.size(); i++)
 	{
 		stage.push_back(inList);//元のやつに突っ込む
 	}
-};
+#endif
+
+	stage={ 
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },		
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, };
+}
 
 void Stage::Initialize()
 {
@@ -62,14 +79,15 @@ void Stage::Draw()
 	Transform floorTrans;
 	Transform wallTrans;
 
-	for (int z = 0; z < FLOORZ; z++)
+	//ステージを書く
+	for (int y = 0; y < FLOORY; y++)
 	{
 		for (int x = 0; x < FLOORX; x++)
 		{
-			floorTrans.position_ = { float(x - 5),0,float(z - 5) };
-			wallTrans.position_ = { float(x - 5),0,float(z - 5) };
+			floorTrans.position_ = { float(x-5),0,float(y-5) };
+			wallTrans.position_ = { float(x-5),0,float(y-5) };
 
-			if (stage[z][x]==1)
+			if (stage[y][x]==1)
 			{
 				Model::SetTransform(hWall_, wallTrans);
 				Model::Draw(hWall_);
@@ -81,5 +99,4 @@ void Stage::Draw()
 			}
 		}
 	}
-
 }

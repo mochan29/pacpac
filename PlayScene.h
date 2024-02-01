@@ -1,5 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
+/// <summary>
+/// プレイシーンをまとめるクラス
+/// </summary>
+/// 
 class PlayScene :
     public GameObject
 {
