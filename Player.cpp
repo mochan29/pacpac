@@ -60,10 +60,11 @@ void Player::Update()
 	Debug::Log(ty);
 #endif
 
+	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180の時),その他はcos
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
-		XMStoreFloat3(&(transform_.position_), pos);//vector->float ここpostmpでは？？まあいいか
+		XMStoreFloat3(&(transform_.position_), pos);//vector->float
 		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
 		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
 		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
