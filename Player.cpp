@@ -42,13 +42,13 @@ void Player::Update()
 	XMVECTOR postmp = XMVectorZero();
 	postmp = pos + speed_ * move;
 	int tx, ty;
-	tx = (int)(XMVectorGetX(postmp) - 0.5);
-	ty = pStage_->GetStageHeight() - (int)(XMVectorGetY(postmp)+1.5); //本当にwidthを使うのか...?
+	tx = (int)(XMVectorGetX(postmp)+1.0f);
+	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp)+1.0f);
 	if (!(pStage_->isWall(tx,ty)))
 	{
 		pos = postmp;
 	}
-#ifdef _DEBUG
+#if 0
 	Debug::Log("(x,z)=");
 	Debug::Log(XMVectorGetX(pos));
 	Debug::Log(",");
@@ -59,6 +59,7 @@ void Player::Update()
 	Debug::Log(",");
 	Debug::Log(ty);
 #endif
+
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
