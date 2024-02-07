@@ -8,8 +8,6 @@ void Player::Initialize()
 {
 	hModel_ = Model::Load("Model\\Player.fbx");
 	assert(hModel_ >= 0);
-
-	//(0.5,1.5)を原点として考える
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
 	pStage_ = (Stage *)FindObject("Stage");
@@ -48,23 +46,15 @@ void Player::Update()
 	{
 		pos = postmp;
 	}
-#if 0
-	Debug::Log("(x,z)=");
-	Debug::Log(XMVectorGetX(pos));
-	Debug::Log(",");
-	Debug::Log(XMVectorGetZ(pos),true);
-
-	Debug::Log("(ix,iy)=");
-	Debug::Log(tx);
-	Debug::Log(",");
-	Debug::Log(ty);
-#endif
 
 	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180),その他はcos
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
 		XMStoreFloat3(&(transform_.position_), pos);//vector->float
+
+	//acos
+	#if 1
 		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
 		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
 		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
@@ -74,6 +64,15 @@ void Player::Update()
 		{
 			angle *= -1;
 		}
+	#endif
+
+	//atan
+	#if 0
+		XMMATRIX rot = XMMatrixRotationY(XM_PIDIV2);
+		XMVECTOR modifiedVec = XMVector3Transform(move, rot);
+		float angle = atan2(XMVectorGetZ(modifiedVec), XMVectorGetX(modifiedVec));
+	#endif
+		
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
 }
