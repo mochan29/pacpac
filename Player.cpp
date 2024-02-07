@@ -60,7 +60,7 @@ void Player::Update()
 	Debug::Log(ty);
 #endif
 
-	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180の時),その他はcos
+	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180),その他はcos
 	//ベクトルが0じゃなかったら
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
