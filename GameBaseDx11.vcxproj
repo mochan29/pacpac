@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="StageCamera.cpp" />
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Gauge.h" />
     <ClInclude Include="StageCamera.h" />
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Engine\Audio.h" />

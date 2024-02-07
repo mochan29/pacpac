@@ -112,9 +112,6 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>Play</Filter>
     </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
     <ClCompile Include="OverScene.cpp">
       <Filter>Over</Filter>
     </ClCompile>
@@ -126,6 +123,12 @@
     </ClCompile>
     <ClCompile Include="StageCamera.cpp">
       <Filter>StageCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Gauge.cpp">
+      <Filter>Play</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="StageCamera.h">
       <Filter>StageCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Gauge.h">
+      <Filter>Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

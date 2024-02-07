@@ -10,8 +10,8 @@ class PlayScene :
 public:
 	PlayScene(GameObject* parent) :GameObject(parent, "PlayScene"){};
 	void Initialize() override;
-	void Update() override;
-	void Draw() override;
+	void Update() override {};
+	void Draw() override {};
 	void Release() override {};
 };
 

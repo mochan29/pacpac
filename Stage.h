@@ -14,8 +14,6 @@ enum STAGE_OBJ
 {
 	FLOOR, WALL,
 };
-
-
 class Stage:
     public GameObject
 {

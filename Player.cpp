@@ -3,6 +3,8 @@
 #include "Engine/SphereCollider.h"
 #include "Engine/Input.h"
 #include "Engine/Debug.h"
+#include "Engine/SceneManager.h"
+#include "Gauge.h"
 
 void Player::Initialize()
 {
@@ -10,7 +12,7 @@ void Player::Initialize()
 	assert(hModel_ >= 0);
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
-	pStage_ = (Stage *)FindObject("Stage");
+	pStage_ = (Stage*)FindObject("Stage");
 }
 
 void Player::Update()
@@ -46,6 +48,19 @@ void Player::Update()
 	{
 		pos = postmp;
 	}
+	else
+	{
+		hpCrr_ = hpCrr_ - 2;
+		if (hpCrr_ < 0)
+		{
+			hpCrr_ = 0;
+	#if 0
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_OVER);
+	#endif
+
+		}
+	}
 
 	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180),その他はcos
 	//ベクトルが0じゃなかったら
@@ -53,8 +68,8 @@ void Player::Update()
 	{
 		XMStoreFloat3(&(transform_.position_), pos);//vector->float
 
-	//acos
-	#if 1
+		//acos
+#if 1
 		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
 		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
 		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
@@ -64,17 +79,19 @@ void Player::Update()
 		{
 			angle *= -1;
 		}
-	#endif
+#endif
 
-	//atan
-	#if 0
+		//atan
+#if 0
 		XMMATRIX rot = XMMatrixRotationY(XM_PIDIV2);
 		XMVECTOR modifiedVec = XMVector3Transform(move, rot);
 		float angle = atan2(XMVectorGetZ(modifiedVec), XMVectorGetX(modifiedVec));
-	#endif
-		
+#endif
+
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
+	Gauge* pGauge = (Gauge*)FindObject("Gauge");
+	pGauge.SetGaugeVal(hpMax_, hpCrr_);
 }
 
 void Player::Draw()
