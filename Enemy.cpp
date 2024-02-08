@@ -13,6 +13,8 @@ void Enemy::Initialize()
 	AddCollider(collision);
 	pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
+	transform_.position_.x = 0.5; //player‚Æ“¯‚¶
+	transform_.position_.z = 1.5; //player‚Æ“¯‚¶
 }
 
 void Enemy::Update()
