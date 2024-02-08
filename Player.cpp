@@ -19,31 +19,37 @@ void Player::Update()
 {
 	XMVECTOR vFront{ 0,0,1,0 }; //向きをどうにかする用のベクトル
 	XMVECTOR move{ 0,0,0,0 }; //位置をどうにかする用のベクトル
+	float gapx = 0.5f; //めりこみ防止x
+	float gapy = 0.5f; //めりこみ防止y
 
 	//向き変える
 	if (Input::IsKey(DIK_UP))
 	{
 		move = XMVECTOR{ 0,0,1,0 };
+		gapy = 0.5f;
 	}
 	if (Input::IsKey(DIK_DOWN))
 	{
 		move = XMVECTOR{ 0,0,-1,0 };
+		gapy = -0.5f;
 	}
 	if (Input::IsKey(DIK_RIGHT))
 	{
 		move = XMVECTOR{ 1,0,0,0 };
+		gapx = +0.5f;
 	}
 	if (Input::IsKey(DIK_LEFT))
 	{
 		move = XMVECTOR{ -1,0,0,0 };
+		gapx = -0.5f;
 	}
 
 	XMVECTOR pos = XMLoadFloat3(&(transform_.position_));//float->vector
 	XMVECTOR postmp = XMVectorZero();
 	postmp = pos + speed_ * move;
 	int tx, ty;
-	tx = (int)(XMVectorGetX(postmp)+1.0f);
-	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp)+1.0f);
+	tx = (int)(XMVectorGetX(postmp)+1.0f+gapx);
+	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp)+1.0f+gapy);
 	if (!(pStage_->isWall(tx,ty)))
 	{
 		pos = postmp;
@@ -58,7 +64,6 @@ void Player::Update()
 			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_OVER);
 	#endif
-
 		}
 	}
 
@@ -91,7 +96,7 @@ void Player::Update()
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
 	Gauge* pGauge = (Gauge*)FindObject("Gauge");
-	pGauge.SetGaugeVal(hpMax_, hpCrr_);
+	pGauge->SetGaugeVal(hpMax_, hpCrr_);
 }
 
 void Player::Draw()

@@ -7,9 +7,6 @@
     <Filter Include="01Engine\Collider">
       <UniqueIdentifier>{7f19ecfb-5d70-4d31-a1f7-c9dd14bad324}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01Engine\DirectX">
-      <UniqueIdentifier>{e56f8c9a-95a5-4ceb-b65f-5b8e572d087b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01Engine\GameObject">
       <UniqueIdentifier>{b450e438-c939-4b05-b319-0e3c0b4a335c}</UniqueIdentifier>
     </Filter>
@@ -35,6 +32,9 @@
     <Filter Include="StageCamera">
       <UniqueIdentifier>{81173a98-bba6-4d42-8499-c757944d4a69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01Engine\GameObject\DirectX">
+      <UniqueIdentifier>{e56f8c9a-95a5-4ceb-b65f-5b8e572d087b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -47,19 +47,19 @@
       <Filter>01Engine\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Direct3D.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Fbx.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\FbxParts.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Input.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Sprite.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>01Engine\GameObject</Filter>
@@ -86,7 +86,7 @@
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Texture.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>01Engine\GameObject</Filter>
@@ -101,7 +101,7 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\BillBoard.cpp">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Engine\VFX.cpp">
       <Filter>01Engine\ResourceManager</Filter>
@@ -130,6 +130,9 @@
     <ClCompile Include="Gauge.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -142,19 +145,19 @@
       <Filter>01Engine\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Direct3D.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Fbx.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\FbxParts.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Input.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Sprite.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Camera.h">
       <Filter>01Engine\GameObject</Filter>
@@ -181,7 +184,7 @@
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Texture.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Transform.h">
       <Filter>01Engine\GameObject</Filter>
@@ -196,7 +199,7 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\BillBoard.h">
-      <Filter>01Engine\DirectX</Filter>
+      <Filter>01Engine\GameObject\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Engine\VFX.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -223,6 +226,9 @@
       <Filter>StageCamera</Filter>
     </ClInclude>
     <ClInclude Include="Gauge.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Play</Filter>
     </ClInclude>
   </ItemGroup>
