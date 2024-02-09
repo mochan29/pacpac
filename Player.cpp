@@ -13,6 +13,8 @@ void Player::Initialize()
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
 	pStage_ = (Stage*)FindObject("Stage");
+	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.6f);
+	AddCollider(collision);
 }
 
 void Player::Update()

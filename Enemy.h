@@ -9,7 +9,7 @@
 
 namespace
 {
-	const float ENEMY_MOVE_SPEED{ 0.07f };
+	const float ENEMY_MOVE_SPEED{ 0.05f };
 }
 class Enemy :
     public GameObject
