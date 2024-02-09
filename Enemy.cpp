@@ -14,7 +14,7 @@ void Enemy::Initialize()
 	pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
 	transform_.position_.x = 3.0; //playerÇ∆ìØÇ∂
-	transform_.position_.z = 5.5; //playerÇ∆ìØÇ∂
+	transform_.position_.z = 6.0; //playerÇ∆ìØÇ∂
 }
 
 void Enemy::Update()
@@ -28,12 +28,12 @@ void Enemy::Update()
 	float gapy = 0.5f; //ÇﬂÇËÇ±Ç›ñhé~y
 	XMFLOAT3 ptr = pPlayer_->GetPosition();
 
-	if (transform_.position_.z<ptr.z) //è„
+	if (transform_.position_.z<ptr.z) //
 	{
 		move = XMVECTOR{ 0,0,1,0 };
 		gapy = 0.5f;
 	}
-	else //â∫
+	if(transform_.position_.z>=ptr.z) //â∫
 	{
 		move = XMVECTOR{ 0,0,-1,0 };
 		gapy = -0.5f;
@@ -43,7 +43,7 @@ void Enemy::Update()
 		move = XMVECTOR{ 1,0,0,0 };
 		gapx = +0.5f;
 	}
-	else //ç∂
+	if (transform_.position_.x>=ptr.x) //ç∂
 	{
 		move = XMVECTOR{ -1,0,0,0 };
 		gapx = -0.5f;
