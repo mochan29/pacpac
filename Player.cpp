@@ -54,11 +54,8 @@ void Player::Update()
 		if (hpCrr_ < 0)
 		{
 			hpCrr_ = 0;
-	#if 0
 			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 			pSceneManager->ChangeScene(SCENE_ID_OVER);
-	#endif
-
 		}
 	}
 
@@ -91,7 +88,7 @@ void Player::Update()
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
 	Gauge* pGauge = (Gauge*)FindObject("Gauge");
-	pGauge.SetGaugeVal(hpMax_, hpCrr_);
+	pGauge->SetGaugeVal(hpMax_, hpCrr_);
 }
 
 void Player::Draw()
