@@ -28,16 +28,6 @@ void Enemy::Update()
 	float gapy = 0.5f; //‚ß‚è‚±‚Ý–hŽ~y
 	XMFLOAT3 ptr = pPlayer_->GetPosition();
 
-	if (transform_.position_.z<ptr.z) //
-	{
-		move = XMVECTOR{ 0,0,1,0 };
-		gapy = 0.5f;
-	}
-	if(transform_.position_.z>=ptr.z) //‰º
-	{
-		move = XMVECTOR{ 0,0,-1,0 };
-		gapy = -0.5f;
-	} 
 	if (transform_.position_.x < ptr.x) //‰E
 	{
 		move = XMVECTOR{ 1,0,0,0 };
