@@ -9,13 +9,13 @@
 
 namespace
 {
-	const float ENEMY_MOVE_SPEED{ 0.05f };
+	const float ENEMY_MOVE_SPEED{ 0.03f };
 }
 class Enemy :
     public GameObject
 {
-	int hModel_; //プレイヤーのモデル番号
-	float speed_; //プレイヤーのスピード
+	int hModel_; //エネミーのモデル番号
+	float speed_; //エネミーのスピード
 	Player* pPlayer_; //playerを取ってくるためのポインタ
 	Stage* pStage_;
 public:

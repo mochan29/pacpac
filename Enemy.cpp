@@ -4,6 +4,7 @@
 #include "Stage.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
+#include "Engine/Debug.h"
 
 void Enemy::Initialize()
 {
@@ -19,25 +20,107 @@ void Enemy::Initialize()
 
 void Enemy::Update()
 {
-	//playerの真後ろにいるといいんじゃないだろうか　壁にはぶつからんでほしいけど
-	//敵のx座標がplayerよりも小さければ右+、大きければ左-、
-	//敵のy座標がplayerよりも小さければ下+、大きければ上-
 	XMVECTOR vFront{ 0,0,1,0 }; //向きをどうにかする用のベクトル
-	XMVECTOR move{ 0,0,0,0 }; //位置をどうにかする用のベクトル
 	float gapx = 0.5f; //めりこみ防止x
 	float gapy = 0.5f; //めりこみ防止y
-	XMFLOAT3 ptr = pPlayer_->GetPosition();
+	XMFLOAT3 ptr = pPlayer_->GetPosition(); //プレイヤーの座標的なベクトル
 
-	if (transform_.position_.x < ptr.x) //右
+	//始点:プレイヤー 終点:敵、正規化、moveにぶちこむ
+	float epX = this->GetPosition().x-ptr.x; //x座標の差
+	float epZ = this->GetPosition().z-ptr.z; //z座標の差
+	//float epNormalize = sqrt((epX * epX) + (epY * epY));
+	//epX /= epNormalize;
+	//epY /= epNormalize;
+	
+	XMVECTOR move{ 0,0,0,0 };
+	int a = 0;
+
+	//xの差の方が大きければ、とりあえず横にぎゅいんする
+	if (epX >= 0 && epZ >= 0)//プレイヤーより右上に敵
+	{
+		a = 0;
+		if (fabs(epX) > fabs(epZ))//左に送る
+		{
+			move ={ -1,0,0,0 };
+			gapx = -0.5f;
+		}
+		else //下に送る=z軸は+
+		{
+			move ={ 0,0,-1,0 };
+			gapy = -0.5f;
+		}
+	}
+	else if (epX < 0 && epZ >= 0)//プレイヤーより左上に敵
+	{
+		a = 1;
+		if (fabs(epX) > fabs(epZ))//右に送る
+		{
+			move ={ 1,0,0,0 };
+			gapx = 0.5f;
+		}
+		else //下に送る
+		{
+			move ={ 0,0,-1,0 };
+			gapy = -0.5f;
+		}
+	}
+	else if (epX >= 0 && epZ < 0)//プレイヤーより右下に敵
+	{
+		a = 2;
+		if (fabs(epX) > fabs(epZ))//左に送る
+		{
+			move ={ -1,0,0,0 };
+			gapx = -0.5f;
+		}
+		else //上に送る
+		{
+			move ={ 0,0,+1,0 };
+			gapy = 0.5f;
+		}
+	}
+	else if (epX < 0 && epZ < 0)//プレイヤーより左下に敵
+	{
+		a = 3;
+		if (fabs(epX) > fabs(epZ))//右に送る
+		{
+			move = { 1,0,0,0 };
+			gapx = 0.5f;
+		}
+		else //上に送る
+		{
+			move ={ 0,0,+1,0 };
+			gapy = 0.5f;
+		}
+	}
+
+	//Debug::Log("epX=");
+	//Debug::Log(epX, true);
+	//Debug::Log("epY=");
+	//Debug::Log(epY,true);
+	Debug::Log(a, true);
+		//横のみ謎追尾 没
+#if 0
+	if (transform_.position_.x < ptr.x) //プレイヤーが右
 	{
 		move = XMVECTOR{ 1,0,0,0 };
 		gapx = +0.5f;
 	}
-	if (transform_.position_.x>=ptr.x) //左
+	else if (transform_.position_.x>ptr.x) //プレイヤーが左
 	{
 		move = XMVECTOR{ -1,0,0,0 };
 		gapx = -0.5f;
 	}
+	if (transform_.position_.y < ptr.y) //プレイヤーが上
+	{
+		move = XMVECTOR{ 0,0,1,0 };
+		gapy = +0.5f;
+	}
+	else if (transform_.position_.y > ptr.y) //プレイヤーが下
+	{
+		move = XMVECTOR{ 0,0,-1,0 };
+		gapy = -0.5f;
+	}
+#endif
 
 	XMVECTOR pos = XMLoadFloat3(&(transform_.position_));//float->vector
 	XMVECTOR postmp = XMVectorZero();
