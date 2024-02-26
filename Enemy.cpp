@@ -22,7 +22,7 @@ void Enemy::Update()
 {
 	XMVECTOR vFront{ 0,0,1,0 }; //向きをどうにかする用のベクトル
 	float gapx =0.5f; //めりこみ防止x
-	float gapy = 0.5f; //めりこみ防止y
+	float gapy =0.5f; //めりこみ防止y
 	XMFLOAT3 ptr = pPlayer_->GetPosition(); //プレイヤーの座標的なベクトル
 
 	//始点:プレイヤー 終点:敵、正規化、moveにぶちこむ
