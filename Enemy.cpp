@@ -25,19 +25,18 @@ void Enemy::Update()
 	float gapy =0.5f; //めりこみ防止y
 	XMFLOAT3 ptr = pPlayer_->GetPosition(); //プレイヤーの座標的なベクトル
 
-	//始点:プレイヤー 終点:敵、正規化、moveにぶちこむ
+	//始点:プレイヤー 終点:敵、moveにぶちこむ
 	float epX = this->GetPosition().x-ptr.x; //x座標の差
 	float epZ = this->GetPosition().z-ptr.z; //z座標の差
-	//float epNormalize = sqrt((epX * epX) + (epY * epY));
-	//epX /= epNormalize;
-	//epY /= epNormalize;
 	
 	XMVECTOR move{ 0,0,0,0 };
 	int a = 0;
-	Debug::Log("epX=");
-	Debug::Log(epX, true);
-	Debug::Log("epZ=");
-	Debug::Log(epZ ,true);
+	//Debug::Log("epX=");
+	//Debug::Log(epX, true);
+	//Debug::Log("epZ=");
+	//Debug::Log(epZ ,true);
+
+	//敵さんのAI(うざめ)
 	//xの差の方が大きければ、とりあえず横にぎゅいんする
 	if (epX >= 0 && epZ >= 0)//プレイヤーより右上に敵
 	{
@@ -47,7 +46,7 @@ void Enemy::Update()
 			move ={ -1,0,0,0 };
 			gapx = -0.5f;
 		}
-		else //下に送る=z軸は+
+		else //下に送る
 		{
 			move ={ 0,0,-1,0 };
 			gapy = -0.5f;
@@ -96,12 +95,9 @@ void Enemy::Update()
 		}
 	}
 
-	//Debug::Log("epX=");
-	//Debug::Log(epX, true);
-	//Debug::Log("epY=");
-	//Debug::Log(epY,true);
-	Debug::Log(a, true);
-		//横のみ謎追尾 没
+	//Debug::Log(a, true);
+
+	//横のみ謎追尾 没
 #if 0
 	if (transform_.position_.x < ptr.x) //プレイヤーが右
 	{
