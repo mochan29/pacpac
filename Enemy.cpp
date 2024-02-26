@@ -4,9 +4,9 @@
 #include "Stage.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
-#include "Engine/Debug.h"
+#include "Engine/Debug.h" 
 
-void Enemy::Initialize()
+ void Enemy::Initialize()
 {
 	hModel_ = Model::Load("Model\\Enemy1.fbx");
 	assert(hModel_ >= 0);
@@ -21,7 +21,7 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 	XMVECTOR vFront{ 0,0,1,0 }; //向きをどうにかする用のベクトル
-	float gapx = 0.5f; //めりこみ防止x
+	float gapx =0.5f; //めりこみ防止x
 	float gapy = 0.5f; //めりこみ防止y
 	XMFLOAT3 ptr = pPlayer_->GetPosition(); //プレイヤーの座標的なベクトル
 
@@ -34,7 +34,10 @@ void Enemy::Update()
 	
 	XMVECTOR move{ 0,0,0,0 };
 	int a = 0;
-
+	Debug::Log("epX=");
+	Debug::Log(epX, true);
+	Debug::Log("epZ=");
+	Debug::Log(epZ ,true);
 	//xの差の方が大きければ、とりあえず横にぎゅいんする
 	if (epX >= 0 && epZ >= 0)//プレイヤーより右上に敵
 	{
