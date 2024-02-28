@@ -119,7 +119,7 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Apple")
 	{
 		appCnt_++;
-		if (hpCrr_ < hpMax_)
+		if (hpCrr_ < hpMax_-10)
 		{
 			hpCrr_ += 10;
 		}
