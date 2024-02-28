@@ -5,7 +5,7 @@
 
 void ClearScene::Initialize()
 {
-	hImage_ = Image::Load("Image\\retry.png");
+	hImage_ = Image::Load("Image\\clear.png");
 	assert(hImage_ >= 0);
 }
 

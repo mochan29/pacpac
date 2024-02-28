@@ -48,6 +48,7 @@ void Enemy::Update()
 	
 	XMVECTOR move{ 0,0,1,0 };
 	int a = 0;
+
 	//Debug::Log("epX=");
 	//Debug::Log(epX, true);
 	//Debug::Log("epZ=");
@@ -144,6 +145,7 @@ void Enemy::Update()
 	int tx, ty;
 	tx = (int)(XMVectorGetX(postmp) + 1.0f + gapx);
 	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp) + 1.0f + gapy);
+
 	if (!(pStage_->isWall(tx, ty)))
 	{
 		pos = postmp;
@@ -152,6 +154,7 @@ void Enemy::Update()
 	{
 		move *= -1;
 	}
+
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
 		XMStoreFloat3(&(transform_.position_), pos);//vector->float
@@ -171,7 +174,6 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	
 	if (ranColor_ == 0)
 	{
 		Model::SetTransform(hModel_, transform_);

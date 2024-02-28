@@ -100,7 +100,7 @@ void Player::Update()
 	pGauge->SetGaugeVal(hpMax_, hpCrr_);
 	
 	//エサ全部取ったらクリア
-	if (appCnt_ >= AppleNum)
+	if (appCnt_ > AppleNum)
 	{
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
@@ -118,7 +118,6 @@ void Player::OnCollision(GameObject* pTarget)
 	Apple* pApple_ = (Apple*)FindObject("Apple");
 	if (pTarget->GetObjectName() == "Apple")
 	{
-		pApple_->KillMe();
 		appCnt_++;
 		if (hpCrr_ < hpMax_)
 		{

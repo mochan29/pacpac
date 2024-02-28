@@ -9,7 +9,7 @@
 
 namespace
 {
-	const float PLAYER_MOVE_SPEED{ 0.1f };
+	const float PLAYER_MOVE_SPEED=0.1f;
 	const int AppleNum = 2;
 }
 
@@ -23,7 +23,7 @@ class Player :
 	int hpCrr_; //åªç›ÇÃHP
 	int appCnt_; //ÉGÉTÇéÊÇ¡ÇΩêî
 public:
-	Player(GameObject* parent) :GameObject(parent, "Player"), hModel_(-1), speed_{PLAYER_MOVE_SPEED},pStage_(nullptr), hpMax_(100), hpCrr_(100),appCnt_(0) {};
+	Player(GameObject* parent) :GameObject(parent, "Player"), hModel_(-1), speed_{PLAYER_MOVE_SPEED},pStage_(nullptr), hpMax_(100), hpCrr_(100),appCnt_(0){};
 	~Player() {};
 	void Initialize() override;
 	void Update() override;

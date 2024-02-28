@@ -9,7 +9,7 @@
 
 namespace
 {
-	const float ENEMY_MOVE_SPEED{ 0.03f };
+	const float ENEMY_MOVE_SPEED=0.03f;
 }
 class Enemy :
     public GameObject
@@ -21,7 +21,7 @@ class Enemy :
 	Stage* pStage_;
 	int ranColor_; //êFïœÇ¶óp
 public:
-	Enemy(GameObject* parent) :GameObject(parent, "Enemy"), hModel_(-1), speed_{ ENEMY_MOVE_SPEED }, pPlayer_(nullptr),pStage_(nullptr),a(0){};
+	Enemy(GameObject* parent) :GameObject(parent, "Enemy"), hModel_(-1), speed_{ ENEMY_MOVE_SPEED }, pPlayer_(nullptr),pStage_(nullptr),ranColor_(0){};
 	~Enemy() {};
 	void Initialize() override;
 	void Update() override;

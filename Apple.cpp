@@ -11,8 +11,8 @@ void Apple::Initialize()
 	assert(hModel_ >= 0);
 	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.4f);
 	AddCollider(collision);
-	Player* pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
+
 
 	//•Ç‚Å‰Šú‰»‚ð–h‚®
 	int x, z;
@@ -40,5 +40,14 @@ void Apple::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+}
+
+void Apple::OnCollision(GameObject* pTarget)
+{
+	Player* pPlayer = (Player*)FindObject("Player");
+	if (pTarget->GetObjectName() == "Player")
+	{
+		this->KillMe();
+	}
 }
 
