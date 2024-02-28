@@ -19,32 +19,103 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	XMVECTOR vFront{ 0,0,1,0 }; //向きをどうにかする用のベクトル
-	XMVECTOR move{ 0,0,0,0 }; //位置をどうにかする用のベクトル
+	XMVECTOR vFront{ 0,0,1,0 }; //位置をどうにかする用のベクトル
+	XMVECTOR move{ 0,0,0,0 }; //向きをどうにかする用のベクトル
 	float gapx = 0.5f; //めりこみ防止x
 	float gapy = 0.5f; //めりこみ防止y
 
 	//向き変える
+#if 1
+	int deg = degree_%360; //角度を0-360にする
+	float ang = (XM_PI * float(deg)) / 180; //ラジアンに直す
+	float moveSin_ = sinf(ang); //sinへ
+	float moveCos_ = cosf(ang); //cosへ
+
+	if (Input::IsKey(DIK_UP))
+	{	
+		if (deg<DEFUP) //0-90
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg+=0.1;
+		}
+		else if(deg>=DEFUP) //90-360 
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg-=0.1;
+		}
+		//90度ぴったりの時は何もしない
+		gapy = 0.5f;
+	}
+
+	if (Input::IsKey(DIK_DOWN))
+	{
+		if (deg < DEFDOWN) //0-270
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg+=0.1;
+		}
+		else if (deg >=DEFDOWN) //270-360
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg+=0.1;
+		}
+		gapy = -0.5f;
+	}
+
+	if (Input::IsKey(DIK_RIGHT))
+	{
+		//0からなのでdegが小さい時はない
+		if (deg >=DEFRIGHT) //0-360
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg+=0.1;
+		}
+		gapx = +0.5f;
+	}
+
+	if (Input::IsKey(DIK_LEFT))
+	{
+		if (deg < DEFLEFT) //0-180
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg+=0.1;
+		}
+		else if (deg >=DEFLEFT) //180-360
+		{
+			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
+			deg-=0.1;
+		}
+		gapx = -0.5f;
+	}
+
+	Debug::Log(moveCos_,true); 
+	Debug::Log("moveCos_", true);
+	Debug::Log(moveSin_, true);
+	Debug::Log("moveSin_", true);
+#endif
+
+#if 0
 	if (Input::IsKey(DIK_UP))
 	{
 		move = XMVECTOR{ 0,0,1,0 };
 		gapy = 0.5f;
 	}
-	if (Input::IsKey(DIK_DOWN))
+	if (Input::IsKey(DIK_DOWN))//270
 	{
 		move = XMVECTOR{ 0,0,-1,0 };
 		gapy = -0.5f;
 	}
-	if (Input::IsKey(DIK_RIGHT))
+	if (Input::IsKey(DIK_RIGHT))//0
 	{
 		move = XMVECTOR{ 1,0,0,0 };
 		gapx = +0.5f;
 	}
-	if (Input::IsKey(DIK_LEFT))
+	if (Input::IsKey(DIK_LEFT))//180
 	{
 		move = XMVECTOR{ -1,0,0,0 };
 		gapx = -0.5f;
 	}
+#endif
 
 	XMVECTOR pos = XMLoadFloat3(&(transform_.position_));//float->vector
 	XMVECTOR postmp = XMVectorZero();
@@ -119,9 +190,9 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Apple")
 	{
 		appCnt_++;
-		if (hpCrr_ < hpMax_-10)
+		if (hpCrr_ < hpMax_-BOUNS)
 		{
-			hpCrr_ += 10;
+			hpCrr_ += BOUNS;
 		}
 	}
 }
