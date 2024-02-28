@@ -6,16 +6,34 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Debug.h" 
 
- void Enemy::Initialize()
+void Enemy::Initialize()
 {
-	hModel_ = Model::Load("Model\\Enemy1.fbx");
+	hModel_ = Model::Load("Model\\enemy1.fbx");
+	hModel2_ = Model::Load("Model\\enemy2.fbx");
 	assert(hModel_ >= 0);
-	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.6f);
+	assert(hModel2_ >= 0);
+	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.3f);
 	AddCollider(collision);
 	pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
-	transform_.position_.x = 5.0; //player‚Æ“¯‚¶
-	transform_.position_.z = 10.0; //player‚Æ“¯‚¶
+	a = rand() % 2;
+	
+
+	//•Ç‚Å‰Šú‰»‚ð–h‚®
+	int x, z;
+	do
+	{
+		x = (rand() % 13)+1;
+		z = (rand() % 13)+1;
+	} while (!(pStage_->isWall(x,z)));
+
+	//Debug::Log("X=");
+	//Debug::Log(x, true);
+	//Debug::Log("Z=");
+	//Debug::Log(z ,true);
+
+	transform_.position_.x = float(x)+0.5f;
+	transform_.position_.z =float(z);
 }
 
 void Enemy::Update()
@@ -29,7 +47,7 @@ void Enemy::Update()
 	float epX = this->GetPosition().x-ptr.x; //xÀ•W‚Ì·
 	float epZ = this->GetPosition().z-ptr.z; //zÀ•W‚Ì·
 	
-	XMVECTOR move{ 0,0,0,0 };
+	XMVECTOR move{ 0,0,1,0 };
 	int a = 0;
 	//Debug::Log("epX=");
 	//Debug::Log(epX, true);
@@ -131,6 +149,10 @@ void Enemy::Update()
 	{
 		pos = postmp;
 	}
+	else
+	{
+		move *= -1;
+	}
 	if (!XMVector3Equal(move, XMVectorZero()))
 	{
 		XMStoreFloat3(&(transform_.position_), pos);//vector->float
@@ -150,8 +172,17 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+	
+	if (a == 0)
+	{
+		Model::SetTransform(hModel_, transform_);
+		Model::Draw(hModel_);
+	}
+	else
+	{
+		Model::SetTransform(hModel2_, transform_);
+		Model::Draw(hModel2_);
+	}
 }
 
 void Enemy::OnCollision(GameObject* pTarget)

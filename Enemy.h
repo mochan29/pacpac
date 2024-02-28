@@ -14,12 +14,14 @@ namespace
 class Enemy :
     public GameObject
 {
-	int hModel_; //エネミーのモデル番号
+	int hModel_; //エネミーのモデル番号紫
+	int hModel2_; //エネミーのモデル番号青
 	float speed_; //エネミーのスピード
 	Player* pPlayer_; //playerを取ってくるためのポインタ
 	Stage* pStage_;
+	int a;
 public:
-	Enemy(GameObject* parent) :GameObject(parent, "Enemy"), hModel_(-1), speed_{ ENEMY_MOVE_SPEED }, pPlayer_(nullptr),pStage_(nullptr){};
+	Enemy(GameObject* parent) :GameObject(parent, "Enemy"), hModel_(-1), speed_{ ENEMY_MOVE_SPEED }, pPlayer_(nullptr),pStage_(nullptr),a(0){};
 	~Enemy() {};
 	void Initialize() override;
 	void Update() override;

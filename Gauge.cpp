@@ -24,4 +24,6 @@ void Gauge::Draw()
 	Image::Draw(hGaugeFrame_);
 	Image::SetTransform(hGaugeBar_, transform_);
 	Image::Draw(hGaugeBar_);
+
+	
 }

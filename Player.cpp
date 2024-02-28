@@ -13,7 +13,7 @@ void Player::Initialize()
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
 	pStage_ = (Stage*)FindObject("Stage");
-	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.6f);
+	SphereCollider* collision = new SphereCollider({ 0,0,0 }, 0.4f);
 	AddCollider(collision);
 }
 
@@ -95,12 +95,27 @@ void Player::Update()
 
 		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
 	}
+
 	Gauge* pGauge = (Gauge*)FindObject("Gauge");
 	pGauge->SetGaugeVal(hpMax_, hpCrr_);
+
 }
 
 void Player::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+}
+
+void Player::OnCollision(GameObject* pTarget)
+{
+	Apple* pApple_ = (Apple*)FindObject("Apple");
+	if (pTarget->GetObjectName() == "Apple")
+	{
+		pApple_->KillMe();
+		if (hpCrr_ < hpMax_)
+		{
+			hpCrr_ += 10;
+		}
+	}
 }

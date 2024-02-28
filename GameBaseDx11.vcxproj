@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Apple.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="StageCamera.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Apple.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="StageCamera.h" />
