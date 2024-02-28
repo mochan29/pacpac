@@ -16,8 +16,7 @@ void Enemy::Initialize()
 	AddCollider(collision);
 	pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
-	a = rand() % 2;
-	
+	ranColor_ = rand() % 2;
 
 	//•Ç‚Å‰Šú‰»‚ğ–h‚®
 	int x, z;
@@ -173,7 +172,7 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	
-	if (a == 0)
+	if (ranColor_ == 0)
 	{
 		Model::SetTransform(hModel_, transform_);
 		Model::Draw(hModel_);

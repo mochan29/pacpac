@@ -4,7 +4,7 @@
 #include "Stage.h"
 
 /// <summary>
-/// enemyクラス
+/// Enemyクラス
 /// </summary>
 
 namespace
@@ -19,7 +19,7 @@ class Enemy :
 	float speed_; //エネミーのスピード
 	Player* pPlayer_; //playerを取ってくるためのポインタ
 	Stage* pStage_;
-	int a;
+	int ranColor_; //色変え用
 public:
 	Enemy(GameObject* parent) :GameObject(parent, "Enemy"), hModel_(-1), speed_{ ENEMY_MOVE_SPEED }, pPlayer_(nullptr),pStage_(nullptr),a(0){};
 	~Enemy() {};

@@ -13,8 +13,22 @@ void Apple::Initialize()
 	AddCollider(collision);
 	Player* pPlayer_ = (Player*)FindObject("Player");
 	pStage_ = (Stage*)FindObject("Stage");
-	transform_.position_.x =6.5;
-	transform_.position_.z =3.0;
+
+	//•Ç‚Å‰Šú‰»‚ð–h‚®
+	int x, z;
+	do
+	{
+		x = (rand() % 13) + 1;
+		z = (rand() % 13) + 1;
+	} while (!(pStage_->isWall(x, z)));
+
+	//Debug::Log("X=");
+	//Debug::Log(x, true);
+	//Debug::Log("Z=");
+	//Debug::Log(z ,true);
+
+	transform_.position_.x = float(x) + 0.5f;
+	transform_.position_.z = float(z);
 }
 
 void Apple::Update()

@@ -98,7 +98,13 @@ void Player::Update()
 
 	Gauge* pGauge = (Gauge*)FindObject("Gauge");
 	pGauge->SetGaugeVal(hpMax_, hpCrr_);
-
+	
+	//エサ全部取ったらクリア
+	if (appCnt_ >= AppleNum)
+	{
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	}
 }
 
 void Player::Draw()
@@ -113,6 +119,7 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Apple")
 	{
 		pApple_->KillMe();
+		appCnt_++;
 		if (hpCrr_ < hpMax_)
 		{
 			hpCrr_ += 10;
