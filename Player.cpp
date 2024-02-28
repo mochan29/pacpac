@@ -26,22 +26,22 @@ void Player::Update()
 
 	//向き変える
 #if 1
-	int deg = degree_%360; //角度を0-360にする
+	int deg = degree_ % 360; //角度を0-360にする
 	float ang = (XM_PI * float(deg)) / 180; //ラジアンに直す
 	float moveSin_ = sinf(ang); //sinへ
 	float moveCos_ = cosf(ang); //cosへ
 
 	if (Input::IsKey(DIK_UP))
-	{	
-		if (deg<DEFUP) //0-90
+	{
+		if (deg < DEFUP) //0-90
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg+=0.1;
+			deg += 0.1;
 		}
-		else if(deg>=DEFUP) //90-360 
+		else if (deg >= DEFUP) //90-360 
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg-=0.1;
+			deg -= 0.1;
 		}
 		//90度ぴったりの時は何もしない
 		gapy = 0.5f;
@@ -52,12 +52,12 @@ void Player::Update()
 		if (deg < DEFDOWN) //0-270
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg+=0.1;
+			deg += 0.1;
 		}
-		else if (deg >=DEFDOWN) //270-360
+		else if (deg >= DEFDOWN) //270-360
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg+=0.1;
+			deg += 0.1;
 		}
 		gapy = -0.5f;
 	}
@@ -65,10 +65,10 @@ void Player::Update()
 	if (Input::IsKey(DIK_RIGHT))
 	{
 		//0からなのでdegが小さい時はない
-		if (deg >=DEFRIGHT) //0-360
+		if (deg >= DEFRIGHT) //0-360
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg+=0.1;
+			deg += 0.1;
 		}
 		gapx = +0.5f;
 	}
@@ -78,17 +78,17 @@ void Player::Update()
 		if (deg < DEFLEFT) //0-180
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg+=0.1;
+			deg += 0.1;
 		}
-		else if (deg >=DEFLEFT) //180-360
+		else if (deg >= DEFLEFT) //180-360
 		{
 			move = XMVECTOR{ moveCos_,0,moveSin_,0 };
-			deg-=0.1;
+			deg -= 0.1;
 		}
 		gapx = -0.5f;
 	}
 
-	Debug::Log(moveCos_,true); 
+	Debug::Log(moveCos_, true);
 	Debug::Log("moveCos_", true);
 	Debug::Log(moveSin_, true);
 	Debug::Log("moveSin_", true);
@@ -121,9 +121,10 @@ void Player::Update()
 	XMVECTOR postmp = XMVectorZero();
 	postmp = pos + speed_ * move;
 	int tx, ty;
-	tx = (int)(XMVectorGetX(postmp)+1.0f+gapx);
-	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp)+1.0f+gapy);
-	if (!(pStage_->isWall(tx,ty)))
+	tx = (int)(XMVectorGetX(postmp) + 1.0f + gapx);
+	ty = pStage_->GetStageHeight() - (int)(XMVectorGetZ(postmp) + 1.0f + gapy);
+
+	if (!(pStage_->isWall(tx, ty)))
 	{
 		pos = postmp;
 	}
@@ -138,34 +139,35 @@ void Player::Update()
 		}
 	}
 
-	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180),その他はcos
-	//ベクトルが0じゃなかったら
-	if (!XMVector3Equal(move, XMVectorZero()))
-	{
-		XMStoreFloat3(&(transform_.position_), pos);//vector->float
-
-		//acos
-#if 1
-		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
-		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
-		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
-		//外積で判断<=>y方向の単位ベクトルが±1どっち
-		XMVECTOR vCross = XMVector3Cross(vFront, move);
-		if (XMVectorGetY(vCross) < 0)
-		{
-			angle *= -1;
-		}
-#endif
-
-		//atan
-#if 0
-		XMMATRIX rot = XMMatrixRotationY(XM_PIDIV2);
-		XMVECTOR modifiedVec = XMVector3Transform(move, rot);
-		float angle = atan2(XMVectorGetZ(modifiedVec), XMVectorGetX(modifiedVec));
-#endif
-
-		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
-	}
+	//
+	//	//arctanはlimx->0で∞ atan2で角度出すほうがいい(特にΘ>180),その他はcos
+	//	//ベクトルが0じゃなかったら
+	//	if (!XMVector3Equal(move, XMVectorZero()))
+	//	{
+	//		XMStoreFloat3(&(transform_.position_), pos);//vector->float
+	//
+	//		//acos
+	//#if 1
+	//		XMVECTOR vdot = XMVector3Dot(vFront, move);//内積
+	//		assert(XMVectorGetX(vdot) <= 1 && XMVectorGetX(vdot) >= -1);
+	//		float angle = acos(XMVectorGetX(vdot));//acos[0,pi]
+	//		//外積で判断<=>y方向の単位ベクトルが±1どっち
+	//		XMVECTOR vCross = XMVector3Cross(vFront, move);
+	//		if (XMVectorGetY(vCross) < 0)
+	//		{
+	//			angle *= -1;
+	//		}
+	//#endif
+	//
+	//		//atan
+	//#if 0
+	//		XMMATRIX rot = XMMatrixRotationY(XM_PIDIV2);
+	//		XMVECTOR modifiedVec = XMVector3Transform(move, rot);
+	//		float angle = atan2(XMVectorGetZ(modifiedVec), XMVectorGetX(modifiedVec));
+	//#endif
+	//
+	//		transform_.rotate_.y = XMConvertToDegrees(angle);//radian->degree
+	//	}
 
 	Gauge* pGauge = (Gauge*)FindObject("Gauge");
 	pGauge->SetGaugeVal(hpMax_, hpCrr_);
