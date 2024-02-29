@@ -25,7 +25,7 @@ void Player::Update()
 	float gapy = 0.5f; //‚ß‚è‚±‚Ý–hŽ~y
 
 	//Œü‚«•Ï‚¦‚é
-#if 1
+#if 0
 	//Šî€‚Íã->0 ŽžŒv‰ñ‚è
 	int deg = -(degree_ % 360); //Šp“x‚ð0-360‚É‚·‚é
 	float ang = (XM_PI * float(deg)) / 180; //ƒ‰ƒWƒAƒ“‚É’¼‚·
@@ -96,7 +96,7 @@ void Player::Update()
 	Debug::Log("moveSin_", true);
 #endif
 
-#if 0
+#if 1
 	if (Input::IsKey(DIK_UP))
 	{
 		move = XMVECTOR{ 0,0,1,0 };
